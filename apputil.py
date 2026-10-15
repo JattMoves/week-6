@@ -2,13 +2,16 @@
 import requests
 import os
 import pandas as pd
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Genius:
+    def __init__(self, access_token=None):
+        self.access_token = access_token or os.getenv("ACCESS_TOKEN")
+        if not self.access_token:
+            raise ValueError("ACCESS_TOKEN is missing from the .env file.")
     """Class to interact with the Genius API."""
-
-    def __init__(self, access_token):
-        """Initialize the access token for the Genius API"""
-        self.access_token = access_token
 
     def get_access_token(self):
         """Return the stored Genius API access token"""
