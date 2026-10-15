@@ -13,7 +13,6 @@ class Genius:
         if not self.access_token:
             raise ValueError("ACCESS_TOKEN is missing from the .env file.")
  
-
     def get_access_token(self):
         """Return the stored Genius API access token"""
         return self.access_token
@@ -26,8 +25,7 @@ class Genius:
             headers={"Authorization": f"Bearer {self.access_token}"}
         )
         response.raise_for_status()
-
-        hits = response.json()["response"]["hits"]
+        hits = response.json()["response"]["hits"] 
         artist_id = hits[0]["result"]["primary_artist"]["id"]
 
         response = requests.get(
@@ -42,6 +40,7 @@ class Genius:
     def get_artists(self, search_terms):
         """Get information for multiple artists by their search terms."""
         rows = []
+        
         for term in search_terms:
             artist = artist = self.get_artist(term)["response"]["artist"]
             rows.append({
