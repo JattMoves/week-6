@@ -8,10 +8,11 @@ load_dotenv()
 
 class Genius:
     def __init__(self, access_token=None):
+        """Initialize the access token for the Genius API"""
         self.access_token = access_token or os.getenv("ACCESS_TOKEN")
         if not self.access_token:
             raise ValueError("ACCESS_TOKEN is missing from the .env file.")
-    """Class to interact with the Genius API."""
+ 
 
     def get_access_token(self):
         """Return the stored Genius API access token"""
@@ -35,14 +36,14 @@ class Genius:
         )
         response.raise_for_status()
 
-        return response.json()["response"]["artist"]
+        return response.json()
 
 
     def get_artists(self, search_terms):
         """Get information for multiple artists by their search terms."""
         rows = []
         for term in search_terms:
-            artist = self.get_artist(term)
+            artist = artist = self.get_artist(term)["response"]["artist"]
             rows.append({
                 "search_term": term,
                 "artist_name": artist["name"],
